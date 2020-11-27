@@ -45,6 +45,54 @@ void print () {
     printf("\n");
 }
 
+//checks if the number to be added repeats in the row
+int samerow (int x, int y, int num) {
+  for (int i = 0; i < 9; i++) {
+    if (sudoku[i][y] == num) {
+      return 1;
+    }
+  }
+  return 0;
+}
+
+//checks if the number to be added repeats in the column
+int samecolumn (int x, int y, int num) {
+  for (int i = 0; i < 9; i++) {
+    if (sudoku[x][i] == num) {
+      return 1;
+    }
+  }
+  return 0;
+}
+
+//checks if the number to be added is seen in the 3x3 box
+int samebox (int x, int y, int num) {
+  if (x < 3) {
+    x = 0;
+  } else if (x < 6) {
+    x = 3;
+  } else {
+    x = 6;
+  }
+
+  if (y < 3) {
+    y = 0;
+  } else if (y < 6) {
+    y = 3;
+  } else {
+    y = 6;
+  }
+
+  for (int i = x; i < x + 3; i++) {
+    for (int j = y; j < y + 3; j++) {
+      if (sudoku[i][j] == num) {
+	return 1;
+      }
+    }
+  }
+  return 0;
+}
+
 //function that solves the inputted grid
 int solve (int x, int y) {
   int num = 1;
@@ -93,54 +141,6 @@ int solve (int x, int y) {
       return 0;
     }
   }
-}
-
-//checks if the number to be added repeats in the row
-int samerow (int x, int y, int num) {
-  for (int i = 0; i < 9; i++) {
-    if (sudoku[i][y] == num) {
-      return 1;
-    }
-  }
-  return 0;
-}
-
-//checks if the number to be added repeats in the column
-int samecolumn (int x, int y, int num) {
-  for (int i = 0; i < 9; i++) {
-    if (sudoku[x][i] == num) {
-      return 1;
-    }
-  }
-  return 0;
-}
-
-//checks if the number to be added is seen in the 3x3 box
-int samebox (int x, int y, int num) {
-  if (x < 3) {
-    x = 0;
-  } else if (x < 6) {
-    x = 3;
-  } else {
-    x = 6;
-  }
-
-  if (y < 3) {
-    y = 0;
-  } else if (y < 6) {
-    y = 3;
-  } else {
-    y = 6;
-  }
-
-  for (int i = x; i < x + 3; i++) {
-    for (int j = y; j < y + 3; j++) {
-      if (sudoku[i][j] == num) {
-	return 1;
-      }
-    }
-  }
-  return 0;
 }
 
 int main () {
