@@ -52,7 +52,7 @@ int solve (int x, int y) {
   int tempy = 0;
   if (sudoku[x][y] == 0) {
     while (num < 10) {
-      if (!sameS (x, y, num) && !sameR (x, y, num) && !sameC (x, y, num)) {
+      if (!samebox (x, y, num) && !samerow (x, y, num) && !samecolumn (x, y, num)) {
 	sudoku[x][y] = num;
 	if (x == 8 && y == 8) {
 	  return 1;
@@ -95,8 +95,28 @@ int solve (int x, int y) {
   }
 }
 
+//checks if the number to be added repeats in the row
+int samerow (int x, int y, int num) {
+  for (int i = 0; i < 9; i++) {
+    if (sudoku[i][y] == num) {
+      return 1;
+    }
+  }
+  return 0;
+}
+
+//checks if the number to be added repeats in the column
+int samecolumn (int x, int y, int num) {
+  for (int i = 0; i < 9; i++) {
+    if (sudoku[x][i] == num) {
+      return 1;
+    }
+  }
+  return 0;
+}
+
 //checks if the number to be added is seen in the 3x3 box
-int sameS (int x, int y, int num) {
+int samebox (int x, int y, int num) {
   if (x < 3) {
     x = 0;
   } else if (x < 6) {
@@ -118,26 +138,6 @@ int sameS (int x, int y, int num) {
       if (sudoku[i][j] == num) {
 	return 1;
       }
-    }
-  }
-  return 0;
-}
-
-//checks if the number to be added repeats in the row
-int sameR (int x, int y, int num) {
-  for (int i = 0; i < 9; i++) {
-    if (sudoku[i][y] == num) {
-      return 1;
-    }
-  }
-  return 0;
-}
-
-//checks if the number to be added repeats in the column
-int sameC (int x, int y, int num) {
-  for (int i = 0; i < 9; i++) {
-    if (sudoku[x][i] == num) {
-      return 1;
     }
   }
   return 0;
